@@ -18,7 +18,7 @@ mongoose
   .then(() => console.log("CONNECTED"))
   .catch((err) => console.error(err));
 
-app.use(cors());
+app.use(cors({ origin: "https://masood-ali.netlify.app" }));
 
 app.use(
   express.urlencoded({
