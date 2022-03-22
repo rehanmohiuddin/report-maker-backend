@@ -136,17 +136,15 @@ const generateReport = async (req, res) => {
       // await Promise.all(
       if (_section.media) {
         doc.fontSize(17);
-        doc.text("Check Out Images At", {
+        doc.text("Check Out Images : ", {
           align: "center",
         });
         doc.moveDown(1);
         doc.fontSize(15);
-        doc.text(
-          `https://masood-ali.netlify.app/Images/${_id}?section_id=${_section._id}`,
-          {
-            align: "center",
-          }
-        );
+        doc.text("Click Here For Photos", {
+          align: "center",
+          link: `https://masood-ali.netlify.app/Images/${_id}?section_id=${_section._id}`,
+        });
         doc.moveDown(1);
       }
       doc.fillColor("#444444").fontSize(20).font("Helvetica-Bold");
