@@ -11,6 +11,6 @@ const router = require("express").Router();
 router.post("/report", multipleUpload, createReport);
 router.get("/report", getReport);
 router.get("/reports", getReports);
-// router.post("/generate/report", generateReport);
+router.post("/generate/report", generateReport);
 
 module.exports = router;
