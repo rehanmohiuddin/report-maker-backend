@@ -5,12 +5,14 @@ const {
   getReport,
   getReports,
   generateReport,
+  deleteReport,
 } = require("../views/Report");
 
 const router = require("express").Router();
 
 router.post("/report", multipleUpload, createReport);
 router.get("/report", getReport);
+router.delete("/report", deleteReport);
 router.get("/reports", getReports);
 router.post("/generate/report", generateReport);
 router.post("/auth", auth);

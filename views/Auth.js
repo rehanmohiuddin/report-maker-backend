@@ -5,8 +5,6 @@ const auth = (req, res) => {
   try {
     const { password } = req.body;
     if (password === process.env.PASSCODE) {
-      console.log({ password });
-
       const token = jwt.sign(
         { email: process.env.EMAIL },
         process.env.SECRET_KEY
@@ -30,7 +28,6 @@ const auth = (req, res) => {
 const checkAuth = (req, res) => {
   try {
     const { token } = req.query;
-    console.log({ token });
     const verify = jwt.verify(token, process.env.SECRET_KEY);
     if (verify.email === process.env.EMAIL) {
       const token = jwt.sign(

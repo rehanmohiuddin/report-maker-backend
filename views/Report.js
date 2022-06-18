@@ -24,12 +24,10 @@ const createReport = async (req, res) => {
         streamifier.createReadStream(buffer).pipe(stream);
       });
     };
-    console.log("File Req", req.files);
     if (req.files) {
       for (let i = 0; i < req.files.length; i++) {
         const file = req.files[i];
         let result = await streamUpload(req.files[i].buffer);
-        // console.log(result);
         const deptName = file.originalname.split("-")[0];
 
         Media.has(deptName)
@@ -37,7 +35,6 @@ const createReport = async (req, res) => {
           : Media.set(deptName, [result]);
       }
     }
-    // console.log("Files", Media);
 
     for (const key in req.body) {
       sections.push({
@@ -72,9 +69,23 @@ const getReport = async (req, res) => {
   }
 };
 
+const deleteReport = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const report = await Report.findByIdAndDelete({ _id: id });
+    res.send({
+      message: report,
+    });
+  } catch (e) {
+    res.status(500).send({
+      message: e.toString(),
+    });
+  }
+};
+
 const getReports = async (req, res) => {
   try {
-    const reports = await Report.find();
+    const reports = await Report.find().sort({ _id: -1 });
     res.send({
       message: reports,
     });
@@ -161,4 +172,5 @@ module.exports = {
   getReport: getReport,
   getReports: getReports,
   generateReport: generateReport,
+  deleteReport: deleteReport,
 };
